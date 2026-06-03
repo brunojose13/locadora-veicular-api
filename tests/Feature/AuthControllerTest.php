@@ -64,7 +64,7 @@ describe('Authentication', function () {
             ->toBeInt()
             ->toBe(Status::HTTP_OK);
         
-        $userFromResponse = json_decode($response->getContent())->user;
+        $userFromResponse = json_decode($response->getContent())->User;
 
         expect($userFromResponse)->toHaveProperties(
             array_keys($user->toArray())

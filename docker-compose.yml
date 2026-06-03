@@ -23,7 +23,7 @@ services:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "${DB_EXPOSED_PORT}:${DB_PORT}"
+      - "${DB_EXPOSED_PORT:-3310}:${DB_PORT:-3306}"
     volumes:
       - database-rental:/var/lib/mysql
     networks:
