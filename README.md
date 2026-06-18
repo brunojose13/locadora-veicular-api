@@ -1,6 +1,6 @@
 # Locadora Veicular — API
 
-API REST para gerenciar usuários e carros de uma locadora veicular. Inclui autenticação via token (Laravel Sanctum), arquitetura hexagonal, DDD, princípios SOLID e testes automatizados.
+API REST para gerenciar usuários e carros de uma locadora veicular. API com autenticação via Sanctum, organizada em arquitetura hexagonal inspirada (portas/adaptadores), separação de domínio com entidades e value objects (conceitos de DDD), princípios SOLID aplicados nos fluxos principais, e testes automatizados com Pest (cobertura parcial).
 
 **Stack:** PHP 8.3 · Laravel 10 · MySQL 8.4 · Docker
 
