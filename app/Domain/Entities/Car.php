@@ -9,7 +9,6 @@ use Illuminate\Support\Carbon;
 
 class Car implements IEntity
 {
-
     public function __construct(
         private int $id,
         private string $brand,

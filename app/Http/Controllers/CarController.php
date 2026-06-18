@@ -18,7 +18,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CarController extends Controller
 {
-
     public function __construct(
         private ICarService $carService,
     ) {}

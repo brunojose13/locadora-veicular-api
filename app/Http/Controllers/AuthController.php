@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-
     public function __construct(
         private IAuthService $authService,
     ) {}

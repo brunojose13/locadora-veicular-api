@@ -10,7 +10,6 @@ use Illuminate\Support\Str;
 
 class CarOutput
 {
-
     public function __construct(
         private Car $car,
     ) {}

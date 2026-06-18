@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MessageResponse implements IJsonResponse
 {
-
     public function __construct(
         private string $message = '', 
         private int $statusCode = 200,

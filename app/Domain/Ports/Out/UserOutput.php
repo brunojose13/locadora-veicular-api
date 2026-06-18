@@ -10,7 +10,6 @@ use Illuminate\Support\Str;
 
 class UserOutput
 {
-
     public function __construct(
         private User $user,
     ) {}

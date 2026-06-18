@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ArrayResponse implements IJsonResponse
 {
-
     public function __construct(
         private array $data, 
         private int $statusCode = 200,

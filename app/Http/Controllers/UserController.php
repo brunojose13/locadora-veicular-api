@@ -19,7 +19,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
-
     public function __construct(
         private IUserService $userService,
     ) {}

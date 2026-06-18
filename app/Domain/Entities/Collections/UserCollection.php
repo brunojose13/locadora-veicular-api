@@ -8,7 +8,6 @@ use App\Domain\Entities\User;
 
 class UserCollection extends Collection
 {
-
     /**
      * @param User[] $users Array contendo instâncias de User
      */

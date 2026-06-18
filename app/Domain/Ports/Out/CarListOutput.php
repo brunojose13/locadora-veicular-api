@@ -10,7 +10,6 @@ use Illuminate\Support\Str;
 
 class CarListOutput
 {
-
     public function __construct(
         private CarCollection $carCollection,
     ) {}

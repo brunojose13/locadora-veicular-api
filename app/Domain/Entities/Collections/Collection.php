@@ -11,7 +11,6 @@ use function App\Helpers\getClassShortName;
 
 abstract class Collection
 {
-
     public function __construct(
         protected array $collectionEntities,
         protected string $entityType,

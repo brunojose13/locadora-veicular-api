@@ -10,7 +10,6 @@ use Illuminate\Support\Str;
 
 class UserListOutput
 {
-
     public function __construct(
         private UserCollection $userCollection,
     ) {}

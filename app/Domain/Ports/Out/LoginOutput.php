@@ -6,7 +6,6 @@ namespace App\Domain\Ports\Out;
 
 class LoginOutput
 {
-
     public function __construct(
         private string $token,
         private int $expiresIn,

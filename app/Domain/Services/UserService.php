@@ -16,7 +16,6 @@ use App\Exceptions\UserNotFoundException;
 
 class UserService implements IUserService
 {
-
     public function __construct(
         private IUserRepository $userRepository,
         private IAuthService $authService,

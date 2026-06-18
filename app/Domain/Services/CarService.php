@@ -15,7 +15,6 @@ use App\Exceptions\CarNotFoundException;
 
 class CarService implements ICarService
 {
-
     public function __construct(
         private ICarRepository $carRepository,
     ) {}

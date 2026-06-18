@@ -15,7 +15,6 @@ use App\Infrastructure\Models\User;
 
 class AuthService implements IAuthService
 {
-
     public function authenticate(Credentials $credentials): LoginOutput
     {
         if (! auth()->attempt($credentials->toArray())) {
