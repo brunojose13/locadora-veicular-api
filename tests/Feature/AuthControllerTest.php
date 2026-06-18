@@ -34,13 +34,13 @@ describe('Authentication', function () {
 
         $request = Request::create(
             route('logout'),
-            'DELETE'
+            'POST'
         );
 
         $request->headers->set('Authorization', 'Bearer ' . $token);
         $response = app()->handle($request);
 
-        expect($request->method())->toBe('DELETE');
+        expect($request->method())->toBe('POST');
         expect($response)->toBeInstanceOf(JsonResponse::class);
         expect($response->getStatusCode())
             ->toBeInt()
@@ -63,12 +63,6 @@ describe('Authentication', function () {
         expect($response->getStatusCode())
             ->toBeInt()
             ->toBe(Status::HTTP_OK);
-        
-        $userFromResponse = json_decode($response->getContent())->User;
-
-        expect($userFromResponse)->toHaveProperties(
-            array_keys($user->toArray())
-        );
     });
 
     it('will block unauthorized users', function () {

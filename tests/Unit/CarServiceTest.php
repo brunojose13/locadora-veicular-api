@@ -23,7 +23,7 @@ describe('CRUD for Car', function () {
         expect($outputObject)->toBeInstanceOf(CarListOutput::class);
         expect($output)->toBeArray();
 
-        expect($output['CarCollection'])
+        expect($output['carCollection'])
             ->not->toBeEmpty()
             ->toHaveCount(2);
     });
@@ -35,8 +35,8 @@ describe('CRUD for Car', function () {
         expect($outputObject)->toBeInstanceOf(CarOutput::class);
         expect($output)->toBeArray();
         
-        expect($output['Car']['brand'])->toBe('Jeep')
-            ->and($output['Car']['model'])->toBe('Renegade');
+        expect($output['car']['brand'])->toBe('Jeep')
+            ->and($output['car']['model'])->toBe('Renegade');
     })->with('carData');
 
     it('updates a car', function (Car $car) {
@@ -53,10 +53,10 @@ describe('CRUD for Car', function () {
         expect($outputObject)->toBeInstanceOf(CarOutput::class);
         expect($output)->toBeArray();
         
-        expect($output['Car']['brand'])->toBe('Toyota')
-            ->and($output['Car']['model'])->toBe('Corolla')
-            ->and($output['Car']['age'])->toBe(2021)
-            ->and($output['Car']['price'])->toBe((float) 300);
+        expect($output['car']['brand'])->toBe('Toyota')
+            ->and($output['car']['model'])->toBe('Corolla')
+            ->and($output['car']['age'])->toBe(2021)
+            ->and($output['car']['price'])->toBe((float) 300);
     })->with('carModel');
 
     it('throws when updating a non-existent car', function () {
