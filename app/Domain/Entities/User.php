@@ -16,7 +16,7 @@ class User implements IEntity
         private Credentials $credentials,
         private ?string $rememberToken,
         private ?Carbon $createdAt,
-        private ?Carbon $updatedAt
+        private ?Carbon $updatedAt,
     ) {}
 
     public function getId(): int
@@ -45,8 +45,8 @@ class User implements IEntity
             'id' => $this->getId(),
             'name' => $this->getName(),
             'email' => $this->getEmail(),
-            'created_at' => $this->createdAt?->toDateTimeString(),
-            'updated_at' => $this->updatedAt?->toDateTimeString()
+            'createdAt' => $this->createdAt?->toDateTimeString(),
+            'updatedAt' => $this->updatedAt?->toDateTimeString(),
         ];
     }
 

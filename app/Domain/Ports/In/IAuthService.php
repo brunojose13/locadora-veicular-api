@@ -16,6 +16,4 @@ interface IAuthService
     public function invalidate(): LogoutOutput;
 
     public function getAttributesFromLoggedAuth(): UserOutput;
-
-    public function getDeauthorizeMessage(): void;
 }

@@ -8,6 +8,7 @@ use App\Domain\Entities\Car;
 
 class CarCollection extends Collection
 {
+
     /**
      * @param Car[] $cars Array contendo instâncias de Car
      */

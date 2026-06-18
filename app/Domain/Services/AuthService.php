@@ -11,11 +11,11 @@ use App\Domain\Ports\Out\LogoutOutput;
 use App\Domain\Ports\Out\UserOutput;
 use App\Domain\ValueObjects\Credentials;
 use App\Exceptions\CredentialsException;
-use App\Exceptions\UnauthorizedUserException;
 use App\Infrastructure\Models\User;
 
 class AuthService implements IAuthService
 {
+
     public function authenticate(Credentials $credentials): LoginOutput
     {
         if (! auth()->attempt($credentials->toArray())) {
@@ -24,15 +24,15 @@ class AuthService implements IAuthService
 
          /** @var User $user */
          $user = auth()->user();
-         $minutesExpiration = config('auth.token_expiration_minutes', 10);
+         $expiresIn = config('auth.token_expiration_minutes', 10);
  
          $token = $user->createToken(
              'Token for user ID: ' . $user->id,
              ['*'],
-             now()->addMinutes($minutesExpiration)
+             now()->addMinutes($expiresIn)
          )->plainTextToken;
 
-        return new LoginOutput($token, (int) $minutesExpiration);
+        return new LoginOutput($token, (int) $expiresIn);
     }
 
     public function invalidate(): LogoutOutput
@@ -59,10 +59,5 @@ class AuthService implements IAuthService
         );
 
         return new UserOutput($userEntity);
-    }
-
-    public function getDeauthorizeMessage(): void
-    {
-        throw new UnauthorizedUserException();
     }
 }

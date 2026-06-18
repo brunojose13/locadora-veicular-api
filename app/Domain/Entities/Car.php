@@ -9,6 +9,7 @@ use Illuminate\Support\Carbon;
 
 class Car implements IEntity
 {
+
     public function __construct(
         private int $id,
         private string $brand,
@@ -17,7 +18,7 @@ class Car implements IEntity
         private float $price,
         private ?Carbon $createdAt = null,
         private ?Carbon $updatedAt = null,
-        private ?Carbon $deletedAt = null
+        private ?Carbon $deletedAt = null,
     ) {}
 
     public function getId(): int
@@ -33,12 +34,12 @@ class Car implements IEntity
             'model' => $this->model,
             'age' => $this->age,
             'price' => $this->price,
-            'created_at' => $this->createdAt?->toDateTimeString(),
-            'updated_at' => $this->updatedAt?->toDateTimeString()
+            'createdAt' => $this->createdAt?->toDateTimeString(),
+            'updatedAt' => $this->updatedAt?->toDateTimeString(),
         ];
 
         if (! empty($this->deletedAt)) {
-            $data['deleted_at'] = $this->deletedAt->toDateTimeString();
+            $data['deletedAt'] = $this->deletedAt->toDateTimeString();
         }
 
         return $data;
@@ -48,8 +49,8 @@ class Car implements IEntity
     {
         $data = $this->toArray();
 
-        unset($data['created_at']);
-        unset($data['updated_at']);
+        unset($data['createdAt']);
+        unset($data['updatedAt']);
 
         return $data;
     }

@@ -25,10 +25,10 @@ class CarService implements ICarService
         return new CarListOutput($this->carRepository->all());
     }
 
-    public function createCar(CarData $userData): CarOutput
+    public function createCar(CarData $carData): CarOutput
     {
         return new CarOutput(
-            $this->carRepository->save($userData)
+            $this->carRepository->save($carData),
         );
     }
 

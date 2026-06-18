@@ -12,7 +12,7 @@ class UserOutput
 {
 
     public function __construct(
-        private User $user
+        private User $user,
     ) {}
 
     public function getOutput(): array

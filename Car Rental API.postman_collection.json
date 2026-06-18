@@ -1,0 +1,3047 @@
+{
+  "info": {
+    "_postman_id": "d04e8cf3-aa55-4d99-bcb8-3c46c56bb91b",
+    "name": "Car Rental API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "24702725",
+    "_collection_link": "https://go.postman.co/collection/24702725-d04e8cf3-aa55-4d99-bcb8-3c46c56bb91b?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Autenticação",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var response = pm.response.json();\r",
+                  "pm.collectionVariables.set(\"bearer_token\", response.token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"user_1@test.com\",\r\n    \"password\": \"password\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/api/login",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "login"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "code 202 - login ok",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"user_1@test.com\",\r\n    \"password\": \"password\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/login",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "login"
+                  ]
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 20:15:23 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"Accepted\",\n    \"message\": \"Login realizado com sucesso!\",\n    \"token\": \"2|DuSQQJy3zf9PRhOjZXdwhfyjlDGZqAHljHPYEZfE761000c9\",\n    \"expiresIn\": \"10 minutes\"\n}"
+            },
+            {
+              "name": "code 401 - não autorizado",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"null@test.com\",\r\n    \"password\": \"password\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/login",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "login"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 20:20:34 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"Unauthorized\",\n    \"message\": \"O e-mail ou a senha estão inválidos\"\n}"
+            },
+            {
+              "name": "code 422 - campos não informados",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"\",\r\n    \"password\": \"\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/login",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "login"
+                  ]
+                }
+              },
+              "status": "Unprocessable Content",
+              "code": 422,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 20:21:10 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "57"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"error\",\n    \"errors\": [\n        \"O campo `email` é obrigatório\",\n        \"O campo `password` é obrigatório\"\n    ]\n}"
+            },
+            {
+              "name": "code 422 - email inválido",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"user_1\",\r\n    \"password\": \"password\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/login",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "login"
+                  ]
+                }
+              },
+              "status": "Unprocessable Content",
+              "code": 422,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 20:23:03 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"error\",\n    \"errors\": [\n        \"O e-mail informado deve ser válido\"\n    ]\n}"
+            },
+            {
+              "name": "code 422 - senha muito curta",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"user_1@test.com\",\r\n    \"password\": \"pass\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/login",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "login"
+                  ]
+                }
+              },
+              "status": "Unprocessable Content",
+              "code": 422,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 20:22:26 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "56"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"error\",\n    \"errors\": [\n        \"A senha deve conter no mínimo 6 caractéres\"\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/logout",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "logout"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "code 200 - logout ok",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/api/logout",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "logout"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 20:26:20 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"OK\",\n    \"message\": \"Usuário deslogado com sucesso!\"\n}"
+            },
+            {
+              "name": "code 401 - não autorizado",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/api/logout",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "logout"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 20:25:53 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "XSRF-TOKEN=eyJpdiI6InVuT2g0VU00WTMzbjRLY3ZvZkpMSnc9PSIsInZhbHVlIjoiM1ovWER4L1hjdDBLUU93R3NhY21PYldoNTBwQ2xuTGpXVXN1eDl5MUV6NnJjU01aTkhuSFJtLzdobnpaS1A5Y25JR04ydDR4VXdIWjVZQ3lsN0c2YXVmUTR3bno4Tk9ubDFOOGg4aHJkK2FwQVEraUNWcUZjNlhzWmZua01FR1UiLCJtYWMiOiI1MDFiYjc2YTg0N2IyZGUzOTRhNTNiOWRhNGQ1ZTMxYjAzNjEyZDdiOTVmNjIzN2FmOTE3YmM4ZDg5MTJkOGNjIiwidGFnIjoiIn0%3D; expires=Thu, 18 Jun 2026 22:25:53 GMT; Max-Age=7200; path=/; samesite=lax"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "car_rental_api_session=eyJpdiI6IkZxZHMvcnViN09NMWk4OTdYSU1kRlE9PSIsInZhbHVlIjoiditNWlFOQ0g0bHRTVFBLWXJtNzIycVlNb0ZmaEFMUi9vc2NEczlTSzR4KzlUYjhNQ3MzQjhGVVdUMFdyTWhsQ3hnVldwS1RoYncwUWtWQzFrUm9vM2NVaytURUw3biszWjJ0SVlpcnJ0R3VhaFNCRzBDM1lxbVVvdC9PVXdaelQiLCJtYWMiOiIzYTMxNGZjMjRmYTFkNjZlZmYwMDg1ZjA3MGUzNDQ2ZjQyNzEwZTAzNTZmNzE4ZmM5ZDYxMGQzM2YyMjU2MGNlIiwidGFnIjoiIn0%3D; expires=Thu, 18 Jun 2026 22:25:53 GMT; Max-Age=7200; path=/; httponly; samesite=lax"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"Unauthorized\",\n    \"message\": \"Não autorizado! Você precisa estar logado para poder acessar o sistema\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Trazer dados do usuário autenticado",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/me",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "me"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "code 200 - dados do usuário logado",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/api/me",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "me"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 20:29:12 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"OK\",\n    \"user\": {\n        \"id\": 2,\n        \"name\": \"User 1\",\n        \"email\": \"user_1@test.com\",\n        \"createdAt\": \"2026-06-18 16:44:29\",\n        \"updatedAt\": \"2026-06-18 16:44:29\"\n    }\n}"
+            },
+            {
+              "name": "code 401 - não autorizado",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/api/me",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "me"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 20:27:48 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "XSRF-TOKEN=eyJpdiI6IkNsdXdKRUo5QmRteTBWUFoxaDRUN2c9PSIsInZhbHVlIjoiZEx2Ui9JUTFXckhqYVlVclNYWGZycXl0Y1dFZ015WVAxNDFSeUFobDJPT0hHS28wRk1aMGFOY2M2M3JjUE1yOTFiZXV6a0V1TFFaT2syUXVVK3pSMWo0dnQzTjJRcGZwcDMrcWs5aURpODVJakdGR0FoTHdid3RjSzI1cXpkVGciLCJtYWMiOiJlYTJjNGU0ODJmMTE2MTc3ZTczYWY0ZDVmNzViMjIyNzEyNTQzZjYxYzI0NDZhYTZkMDViMDRhNGUxZmMxZTQzIiwidGFnIjoiIn0%3D; expires=Thu, 18 Jun 2026 22:27:48 GMT; Max-Age=7200; path=/; samesite=lax"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "car_rental_api_session=eyJpdiI6IjVweEhQNTdMZEJGTzltY3prd09DTUE9PSIsInZhbHVlIjoiMXdJcUlkNlcvaHF2VzUrTmw5UzhMK1NQNEpZUEg2bE9UaVk3ZGNMczNqbEhVTkt4R255eERUUHdqVm1VQmtSL2JmdGxkNnd4RmdMcmdUVUZxaVpBd0NxWkx0cS9GSDlDNCt0cENjRlJUMFJYZGREK01yQTdNN0R2TmIzR0pyY3giLCJtYWMiOiJiMTU4MDdkNTQ5Njg4NWNhMTgzMTVlM2U0YzJkZDA0ZTIxYmNkYTNkOTBkZWU3MzUyNGM4ZWQ4OWM3NzQyMGQ0IiwidGFnIjoiIn0%3D; expires=Thu, 18 Jun 2026 22:27:48 GMT; Max-Age=7200; path=/; httponly; samesite=lax"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"Unauthorized\",\n    \"message\": \"Não autorizado! Você precisa estar logado para poder acessar o sistema\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Usuário",
+      "item": [
+        {
+          "name": "Cadastrar usuário",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"User 1\",\r\n    \"email\": \"user_1@test.com\",\r\n    \"password\": \"password\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/api/users/create",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "create"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "code 201 - usuário criado",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"User 1\",\r\n    \"email\": \"user_1@test.com\",\r\n    \"password\": \"password\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/users/create",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users",
+                    "create"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 19:44:29 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"Created\",\n    \"user\": {\n        \"id\": 2,\n        \"name\": \"User 1\",\n        \"email\": \"user_1@test.com\",\n        \"created_at\": \"2026-06-18 16:44:29\",\n        \"updated_at\": \"2026-06-18 16:44:29\"\n    }\n}"
+            },
+            {
+              "name": "code 417 - usuário já cadastrado",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"User 1\",\r\n    \"email\": \"user_1@test.com\",\r\n    \"password\": \"password\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/users/create",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users",
+                    "create"
+                  ]
+                }
+              },
+              "status": "Expectation Failed",
+              "code": 417,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 19:45:06 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"Expectation Failed\",\n    \"message\": \"Já existe um cadastro com o e-mail informado!\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Listar todos os usuários",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/api/users",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "code 200 - listar todos os usuários",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/users",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 20:31:31 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "57"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"OK\",\n    \"userCollection\": [\n        {\n            \"id\": 2,\n            \"name\": \"User 1\",\n            \"email\": \"user_1@test.com\",\n            \"createdAt\": \"2026-06-18 16:44:29\",\n            \"updatedAt\": \"2026-06-18 16:44:29\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"User 2\",\n            \"email\": \"user_2@test.com\",\n            \"createdAt\": \"2026-06-18 17:31:18\",\n            \"updatedAt\": \"2026-06-18 17:31:18\"\n        }\n    ]\n}"
+            },
+            {
+              "name": "code 401 - não autorizado",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/users",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 20:01:43 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "XSRF-TOKEN=eyJpdiI6InNHbWF1SklZU0FNMXppSlFSeUo4QVE9PSIsInZhbHVlIjoic3dzTHYyQm9BL1IxYmJSU2dDZWR2cUN2YUtHUkN5ZGNCeGFTTHkvaThPL1hPTlgrRUJidDY4OVFHSHRXWFNDWXhOZHdST2dvaTZGSEtOV1VoSkNESXA0b2VnZmFQS21VczRJanVyQ2VKN0gyQkNPY2lOYjdQTUtneU82dUlyTjMiLCJtYWMiOiIzZTM5NWRiYjIzZjEzNTA3YTVlZDI5NTU0MGU4Mjc5YTBhNjM2OThjMTFkMjRhMTY0Mjc2OWZlNzA3ODRlMTQ0IiwidGFnIjoiIn0%3D; expires=Thu, 18 Jun 2026 22:01:43 GMT; Max-Age=7200; path=/; samesite=lax"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "car_rental_api_session=eyJpdiI6ImdjS3hnTzdTYmZCbGdqRWhvb0tmZ2c9PSIsInZhbHVlIjoiTUs4aVRXcGJiRks4QzA4QTh3ZndaNHNzM2hpWHV0ZVZXSEZmYkg2WUxGcFJKVElVQldSQ09iUjAybVk1Q0hpM0EwdmFUMkpxcmZFT0lnSEtCU3BQTkpxWk9PWlQ0Wk9pclBmRHRMTjFCZ1V3OXpqcU5JNFg0eTVqVWpVVXNrRWciLCJtYWMiOiJlOWY1NTBmZTMwMmExMWJkMDA1MDI0NTc4NTlkZjZhNzJhMjlkODFiZTE2ZDY3OGU1YjUxZmM1ODYyMTViMjBhIiwidGFnIjoiIn0%3D; expires=Thu, 18 Jun 2026 22:01:43 GMT; Max-Age=7200; path=/; httponly; samesite=lax"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"Unauthorized\",\n    \"message\": \"Não autorizado! Você precisa estar logado para poder acessar o sistema\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Buscar usuário",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/api/users/2",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "2"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "code 200 - dados do usuário",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/users/2",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users",
+                    "2"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 20:35:09 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"OK\",\n    \"user\": {\n        \"id\": 2,\n        \"name\": \"User 1\",\n        \"email\": \"user_1@test.com\",\n        \"createdAt\": \"2026-06-18 16:44:29\",\n        \"updatedAt\": \"2026-06-18 16:44:29\"\n    }\n}"
+            },
+            {
+              "name": "code 401 - usuário não encontrado",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/users/null",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users",
+                    "null"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 20:34:04 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"Not Found\",\n    \"message\": \"Usuário não encontrado!\"\n}"
+            },
+            {
+              "name": "code 401 - não autorizado",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/users/null",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users",
+                    "null"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 20:34:42 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "XSRF-TOKEN=eyJpdiI6Ik14YW1ENGRBMnBiaEZ1U3Q1MkJZMXc9PSIsInZhbHVlIjoiS28yamNpTFBnYy9XaWgvQWdhVGY5b2p5blVsSnB6WjlPM0FjU3Q3M3hMY0hTL08vcm4vZHV3VGozY2V6RktPR0ZHdWsxVGxlZFRQME1TenlpMHVJMWIvTHRNZWVtczlJeVhsT1YyZjJUR1RDUnJkS0haV2ZBUmMyUEF1TnlnYlEiLCJtYWMiOiIyNmQyNDY0ZjdiODEyMWEzZGNlOWJmYjI2Y2UzNTY3OThiNjQwNjk0ZmJlZjU1MDZiMjUxNDEyMDU1ZTY0ZDBiIiwidGFnIjoiIn0%3D; expires=Thu, 18 Jun 2026 22:34:42 GMT; Max-Age=7200; path=/; samesite=lax"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "car_rental_api_session=eyJpdiI6IlpIL0JhQTdyL3FKczJzM1hlUDBuWVE9PSIsInZhbHVlIjoiMHgvTkxJVjBETTFlUmxEWXFNUkNOQzZpTDJvUkMxTG1nV1JnblJUTXU3bTQ3RDY3dTc1ZVE1bWZyTW8rOGloQlhFZVVPSWFzUk11b2k2Y2VjYW9BciszNnlBU2U0TDJ0bHQzUWhzcTUyd3V5ZWs2YTJLNTYvMGt1bVErUE9KZDYiLCJtYWMiOiJlN2U4NWVhN2MwMTA1MzY1ZTM4MTZlOTIzMWI4ZThkY2NmNGYyNDQ1MDZhZTlhNTQwODM1ZWZmY2M1NWM2ZmY1IiwidGFnIjoiIn0%3D; expires=Thu, 18 Jun 2026 22:34:42 GMT; Max-Age=7200; path=/; httponly; samesite=lax"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"Unauthorized\",\n    \"message\": \"Não autorizado! Você precisa estar logado para poder acessar o sistema\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Editar dados do usuário",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"New User 1\",\r\n    \"password\": \"newpassword\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/api/users/update",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "update"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "code 200 - dados atualizados",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"New User 1\",\r\n    \"password\": \"newpassword\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/users/update",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users",
+                    "update"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 20:36:34 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"OK\",\n    \"user\": {\n        \"id\": 2,\n        \"name\": \"New User 1\",\n        \"email\": \"user_1@test.com\",\n        \"createdAt\": \"2026-06-18 16:44:29\",\n        \"updatedAt\": \"2026-06-18 17:36:34\"\n    }\n}"
+            },
+            {
+              "name": "code 401 - não autorizado",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"New User 1\",\r\n    \"password\": \"newpassword\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/users/update",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users",
+                    "update"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.2"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sun, 07 Jul 2024 15:01:24 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "XSRF-TOKEN=eyJpdiI6IlRKeUg3em1lU2hrWHp0Z21LM0ZwWXc9PSIsInZhbHVlIjoiUlNna2ppR0k4OXFRZWxEQ3VMV3VTR1cxYSsxNDh5eDV5SnVJUGJ4NXV6aTRlNW4yZnlrSHZ3WXI3OWtLOW9HdVVmcEUvc0FhZ2IxWjRXalQzZmVXeHhCczlWOEZBSnJMMXo0MkVramJpaUE1bHpxS0Y1Y25zQ0x1ZHNoTWs3enUiLCJtYWMiOiJhYmM4Mjk1M2IwMDkzMGZhOTMxOGI2NGJlNGU0MTY4MzRlMDZmMDhjZWQ4ZmE4OWFkZjY2MjVhNDZlOTIxZjZmIiwidGFnIjoiIn0%3D; expires=Sun, 07 Jul 2024 17:01:24 GMT; Max-Age=7200; path=/; samesite=lax"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "laravel_session=eyJpdiI6IjVVeGdHd1hCMGVuR0JIdncrYnNBNFE9PSIsInZhbHVlIjoiczN4ZmVmREFCS3NVSnI0OUFSQ1VJQ3NUd0VWUzU5RG1SQ1Fuc1AwcHAxeVFENGdLOWI0a0x2bGZ3a3dkdXViWWU1c2J2dlNGNHFGK1l4QVBXVkpDUVRhZG1NUDN1citFTUxHVWd4VHIzZER4RlNHTEtXTnFTSXhIcDRXL1pWeFYiLCJtYWMiOiIwNjNlNDRlMjU4MGZmZWFkNzQ3MzM4MTM3NmEzYWE4Zjc1MDQwM2YyMWZiZmExNzc1YWNjOTA5NTgyNmZhNjM4IiwidGFnIjoiIn0%3D; expires=Sun, 07 Jul 2024 17:01:24 GMT; Max-Age=7200; path=/; httponly; samesite=lax"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"response_status\": \"Unauthorized\",\n    \"message\": \"Não autorizado! Você precisa estar logado para poder acessar o sistema\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Remover usuário",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/users/delete",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "delete"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "code 200 - usuário deletado",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/api/users/delete",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users",
+                    "delete"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 20:38:58 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"OK\",\n    \"deleted\": true,\n    \"message\": \"Usuário deletado com sucesso\"\n}"
+            },
+            {
+              "name": "code 401 - não autorizado",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/api/users/delete",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users",
+                    "delete"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 20:39:38 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "XSRF-TOKEN=eyJpdiI6InFnam04TXp5NmFWZnNNS0NmTEplckE9PSIsInZhbHVlIjoiZzR1eEQwNXlueG9OSHUyd0FTWTQ3cDFpbVJJamZ3NzJvWGJPQ25nemFHWSthTnZPbFZUdVNWbjFPVDRDTHE0Wk9nOXVlcFFHU3ZPWTVKUkg4V0dwZi9OQ0ZKNkY2V3RpSnFhZ0RuUW5uUkRjUFZlbkpnUnA3OEcycUdzYkV4cG0iLCJtYWMiOiI0Y2FmOTg0MzU5MDFjODBmZWMwMTdlMWQzMjQxZTk1MzA3NTY1YjJiNGZjMWNhZjA2ZjA5NDk5YjhiZjQyMDRjIiwidGFnIjoiIn0%3D; expires=Thu, 18 Jun 2026 22:39:38 GMT; Max-Age=7200; path=/; samesite=lax"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "car_rental_api_session=eyJpdiI6IlRLWCsvb0NLYU85NEdaQ1NKdVRrTnc9PSIsInZhbHVlIjoiRG0wYXU0aXVoaWwzemJRTmRWQnRtN0xYd3VTOEpYdWtIYXdJbEhVeW5iSTJWcWtnSHVaVnRzTzNOV3V5MXE4NjNReTFqZ3FlcExuWDlWMWV2WnY1eVV4ZTIzQzk2ZE41WktlUVpZNWJhOHZmeDJPZU9laDIzQTl6ZEY0OGpIS1YiLCJtYWMiOiJiYzQ0ZTAwYWQwODMxYjEzMmNhMWY2Njc4YWNjN2ZkZmE4NTQ1MGMyMjBkYzczMDFiMTA3Y2YzMGRhYWExMTYzIiwidGFnIjoiIn0%3D; expires=Thu, 18 Jun 2026 22:39:38 GMT; Max-Age=7200; path=/; httponly; samesite=lax"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"Unauthorized\",\n    \"message\": \"Não autorizado! Você precisa estar logado para poder acessar o sistema\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Carro",
+      "item": [
+        {
+          "name": "Cadastrar carro",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"brand\": \"Chevrolet\",\r\n    \"model\": \"Cruze Sport6\",\r\n    \"age\": 2020,\r\n    \"price\": 115\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/api/cars/create",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "cars",
+                "create"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "code 201 - carro cadastrado",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"brand\": \"Chevrolet\",\r\n    \"model\": \"Cruze Sport6\",\r\n    \"age\": 2020,\r\n    \"price\": 115\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/cars/create",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cars",
+                    "create"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 20:42:16 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"Created\",\n    \"car\": {\n        \"id\": 1,\n        \"brand\": \"Chevrolet\",\n        \"model\": \"Cruze Sport6\",\n        \"age\": 2020,\n        \"price\": 115,\n        \"createdAt\": \"2026-06-18 17:42:16\",\n        \"updatedAt\": \"2026-06-18 17:42:16\"\n    }\n}"
+            },
+            {
+              "name": "code 422 - campos não informados",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "// {\r\n//     \"brand\": \"Chevrolet\",\r\n//     \"model\": \"Cruze\",\r\n//     \"age\": 2015,\r\n//     \"price\": 115\r\n// }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/cars/create",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cars",
+                    "create"
+                  ]
+                }
+              },
+              "status": "Unprocessable Content",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.2"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sun, 07 Jul 2024 20:32:10 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "57"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"error\",\n    \"errors\": [\n        \"O campo `brand` é obrigatório\",\n        \"O campo `model` é obrigatório\",\n        \"O campo `age` é obrigatório\",\n        \"O campo `price` é obrigatório\"\n    ]\n}"
+            },
+            {
+              "name": "code 422 - ano do carro e valor da alocação inválidos",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"brand\": \"Chevrolet\",\r\n    \"model\": \"Cruze\",\r\n    \"age\": 2015,\r\n    \"price\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/cars/create",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cars",
+                    "create"
+                  ]
+                }
+              },
+              "status": "Unprocessable Content",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.2"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sun, 07 Jul 2024 20:32:58 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"error\",\n    \"errors\": [\n        \"O ano do carro deve ser entre 2019 e 2024\",\n        \"O valor mínimo do aluguel do carro é de R$ 50\"\n    ]\n}"
+            },
+            {
+              "name": "code 401 - não autorizado",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"brand\": \"Chevrolet\",\r\n    \"model\": \"Cruze Sport6\",\r\n    \"age\": 2020,\r\n    \"price\": 115\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/cars/create",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cars",
+                    "create"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 20:01:43 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "XSRF-TOKEN=eyJpdiI6InNHbWF1SklZU0FNMXppSlFSeUo4QVE9PSIsInZhbHVlIjoic3dzTHYyQm9BL1IxYmJSU2dDZWR2cUN2YUtHUkN5ZGNCeGFTTHkvaThPL1hPTlgrRUJidDY4OVFHSHRXWFNDWXhOZHdST2dvaTZGSEtOV1VoSkNESXA0b2VnZmFQS21VczRJanVyQ2VKN0gyQkNPY2lOYjdQTUtneU82dUlyTjMiLCJtYWMiOiIzZTM5NWRiYjIzZjEzNTA3YTVlZDI5NTU0MGU4Mjc5YTBhNjM2OThjMTFkMjRhMTY0Mjc2OWZlNzA3ODRlMTQ0IiwidGFnIjoiIn0%3D; expires=Thu, 18 Jun 2026 22:01:43 GMT; Max-Age=7200; path=/; samesite=lax"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "car_rental_api_session=eyJpdiI6ImdjS3hnTzdTYmZCbGdqRWhvb0tmZ2c9PSIsInZhbHVlIjoiTUs4aVRXcGJiRks4QzA4QTh3ZndaNHNzM2hpWHV0ZVZXSEZmYkg2WUxGcFJKVElVQldSQ09iUjAybVk1Q0hpM0EwdmFUMkpxcmZFT0lnSEtCU3BQTkpxWk9PWlQ0Wk9pclBmRHRMTjFCZ1V3OXpqcU5JNFg0eTVqVWpVVXNrRWciLCJtYWMiOiJlOWY1NTBmZTMwMmExMWJkMDA1MDI0NTc4NTlkZjZhNzJhMjlkODFiZTE2ZDY3OGU1YjUxZmM1ODYyMTViMjBhIiwidGFnIjoiIn0%3D; expires=Thu, 18 Jun 2026 22:01:43 GMT; Max-Age=7200; path=/; httponly; samesite=lax"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"Unauthorized\",\n    \"message\": \"Não autorizado! Você precisa estar logado para poder acessar o sistema\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Atualizar carro",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\": 1,\r\n    \"brand\": \"Fiat\",\r\n    \"model\": \"Argo\",\r\n    \"age\": 2024,\r\n    \"price\": 80\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/api/cars/update",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "cars",
+                "update"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "code 200 - dados atualizados",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"id\": 1,\r\n    \"brand\": \"Fiat\",\r\n    \"model\": \"Argo\",\r\n    \"age\": 2024,\r\n    \"price\": 80\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/cars/update",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cars",
+                    "update"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.2"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sun, 07 Jul 2024 20:36:56 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"response_status\": \"OK\",\n    \"Car\": {\n        \"id\": 1,\n        \"brand\": \"Fiat\",\n        \"model\": \"Argo\",\n        \"age\": 2024,\n        \"price\": 80,\n        \"created_at\": \"2024-07-07 17:18:07\",\n        \"updated_at\": \"2024-07-07 17:36:56\"\n    }\n}"
+            },
+            {
+              "name": "code 422 - campos não informados",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "// {\r\n//     \"id\": 1,\r\n//     \"brand\": \"Fiat\",\r\n//     \"model\": \"Uno\",\r\n//     \"age\": 2020,\r\n//     \"price\": 80\r\n// }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/cars/update",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cars",
+                    "update"
+                  ]
+                }
+              },
+              "status": "Unprocessable Content",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.2"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sun, 07 Jul 2024 20:35:23 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"error\",\n    \"errors\": [\n        \"O campo `id` é obrigatório\",\n        \"O campo `brand` é obrigatório\",\n        \"O campo `model` é obrigatório\",\n        \"O campo `age` é obrigatório\",\n        \"O campo `price` é obrigatório\"\n    ]\n}"
+            },
+            {
+              "name": "code 422 - ano do carro e valor da alocação inválidos",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"id\": 1,\r\n    \"brand\": \"Fiat\",\r\n    \"model\": \"Argo\",\r\n    \"age\": 1,\r\n    \"price\": 8\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/cars/update",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cars",
+                    "update"
+                  ]
+                }
+              },
+              "status": "Unprocessable Content",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.2"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sun, 07 Jul 2024 20:36:28 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"error\",\n    \"errors\": [\n        \"O ano do carro deve ser entre 2019 e 2024\",\n        \"O valor mínimo do aluguel do carro é de R$ 50\"\n    ]\n}"
+            },
+            {
+              "name": "code 401 - não autorizado",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"id\": 1,\r\n    \"brand\": \"Fiat\",\r\n    \"model\": \"Argo\",\r\n    \"age\": 2024,\r\n    \"price\": 80\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/cars/update",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cars",
+                    "update"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 21:30:06 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "XSRF-TOKEN=eyJpdiI6InI2bDluS1ZEQUNmaDhuNTMyWFZOTkE9PSIsInZhbHVlIjoiYSszZTVSdFdwejlYWkV4MEs0NURWU1FCRlBUczN2eDJiYUxBN0lsNC9OZkU3ek9aQzZyYStCQXhTVnpHdmFJZ2MvbURsOU5QMGFpN3lyRU5IT1dqQzQ5b29tcDV5bFdmNEMyZWVSVnZQc1RDU0NqTGpROW1IdTZuMG5IUTkzNGsiLCJtYWMiOiJlYjk3YWVkYzIzOWFhYWJiM2I3NzE4M2Y1ODRmMDVkZWM1NGFkOTA0ZTM0ZDc0ZTdmYTRhZmUzYzZkYmU1YjlkIiwidGFnIjoiIn0%3D; expires=Thu, 18 Jun 2026 23:30:06 GMT; Max-Age=7200; path=/; samesite=lax"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "car_rental_api_session=eyJpdiI6InF3MFZ0NjN3OUVyZ0lZZ0ZoOWZxZGc9PSIsInZhbHVlIjoia1MrZno2ZVllZVl1em5uZXRSMUo1bmUxa2FXUndZSk03Qjh3SzYwZC80Mk9FR0FuNllRSlJDM2pIZWFXZHl2eVJGbXFUcXkwMWR6WDRQMGVUQXdGakg1SmFqTkZicjZYNFIveWpKR01xN01YV2NHcUdNbE55WWo2VlJvVkd3blMiLCJtYWMiOiJlZDdhYTUxMTU0N2FkNzgxNGFmYzYzNjBlZGU1MDViOTJkNTk5NjkzMjQ4MTEyYmVlNTYwNzBiY2M0NmU5NmUyIiwidGFnIjoiIn0%3D; expires=Thu, 18 Jun 2026 23:30:06 GMT; Max-Age=7200; path=/; httponly; samesite=lax"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"Unauthorized\",\n    \"message\": \"Não autorizado! Você precisa estar logado para poder acessar o sistema\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Listar carros disponíveis",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/cars",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "cars"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "code 200 - lista de carros disponíveis",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/api/cars",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cars"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 20:58:08 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"OK\",\n    \"carCollection\": [\n        {\n            \"id\": 1,\n            \"brand\": \"Chevrolet\",\n            \"model\": \"Cruze Sport6\",\n            \"age\": 2020,\n            \"price\": 115,\n            \"createdAt\": \"2026-06-18 17:42:16\",\n            \"updatedAt\": \"2026-06-18 17:42:16\"\n        }\n    ]\n}"
+            },
+            {
+              "name": "code 401 - não autorizado",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/api/cars",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cars"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 20:57:30 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "XSRF-TOKEN=eyJpdiI6ImtYTDU3enBDVWV3NHlBZGJCVmRwM3c9PSIsInZhbHVlIjoiNHIzMStUcjNYdHlleWowZk8vRUJHU2lyMWMxWHJLaFVqVDBaV1NvSHM0TGt1OXo2UUEyRW9tcS9ETk8rd1I1NkZvTHdQb3ZZRnJJRmdZWmxHNkdldjRWcVdaYlVDTTd6bDRteGR6cmc3UFYyUWpCNGkxZGJRSHdtQ01BK1FRL1ciLCJtYWMiOiIwZTAxZmU1MjIyOGI5ZTJiYmYwODEyN2I5MWVlOGRmOTFkYmMzNDNjMGZhODVlZTc4OGJmNGZhYzI4NzQxM2ZlIiwidGFnIjoiIn0%3D; expires=Thu, 18 Jun 2026 22:57:30 GMT; Max-Age=7200; path=/; samesite=lax"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "car_rental_api_session=eyJpdiI6Ill3Z05WZWlQSTc5VytMU3RHMUMxdnc9PSIsInZhbHVlIjoicllFdnZ5T0hwT0xxZGtvYnkzWjVvNHhjZWdlS2RFNGJmaStFUlA0ckw4SjRyYmZLREhPN0I3NUFCY2Y2alg2T29LbHJ4NXJPbHpFRlNFZ0lYUFlOZFY5RUxHT3hZcHplYW9vbjFIRk1nQ004YVNxZk84bUoweFVYekczK1Q0ZmIiLCJtYWMiOiI5ZmI4ZTEwMTIyYTIwYjA0NTQ5YWY1ZDBiOTE1YjU4MWRjYTAzOTc4MzFjYjFlOWRhYWM3Y2U5MDFiNzhjM2M3IiwidGFnIjoiIn0%3D; expires=Thu, 18 Jun 2026 22:57:30 GMT; Max-Age=7200; path=/; httponly; samesite=lax"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"Unauthorized\",\n    \"message\": \"Não autorizado! Você precisa estar logado para poder acessar o sistema\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Buscar carro",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/carros/buscar/10",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "carros",
+                "buscar",
+                "10"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "code 200 - dados do carro",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/api/cars/1",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cars",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 21:29:21 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "57"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"OK\",\n    \"car\": {\n        \"id\": 1,\n        \"brand\": \"Chevrolet\",\n        \"model\": \"Cruze Sport6\",\n        \"age\": 2020,\n        \"price\": 115,\n        \"createdAt\": \"2026-06-18 17:42:16\",\n        \"updatedAt\": \"2026-06-18 17:42:16\"\n    }\n}"
+            },
+            {
+              "name": "code 404 - carro não encontrado",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/api/cars/null",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cars",
+                    "null"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.2"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sun, 07 Jul 2024 20:40:24 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"response_status\": \"Not Found\",\n    \"message\": \"Carro não encontrado!\"\n}"
+            },
+            {
+              "name": "code 401 - não autorizado",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/api/cars/1",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cars",
+                    "1"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 21:30:20 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "XSRF-TOKEN=eyJpdiI6IklPMDhuQUtNTzhZTDM0WVJreXQ1RXc9PSIsInZhbHVlIjoialhGZmgreUNKQlNHcHArSG5tNzRIMlZiWENpQTRwcWpXNzZKQmpjaVZGZWxJeFN5b1FONUJrWHRzcjBXRHJpWVdzajhCRWh1YXlFb0JQYWtmWUxiVHRIdGJSaXdCN0x2bnA2Lzh4dFVERnRNZy9ITEZYOGw4all3M044NytkeEsiLCJtYWMiOiJkN2QxMTNlNDVhMWVmYWU2ZDMzNzJiYmU4MDY2ODI0NjM2YzU4M2UwNjdkNWQ3OGZiOWE1NGZkY2RhNjYzZGVjIiwidGFnIjoiIn0%3D; expires=Thu, 18 Jun 2026 23:30:20 GMT; Max-Age=7200; path=/; samesite=lax"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "car_rental_api_session=eyJpdiI6IjA5Z0pEZEwvVU1LOGpXYkZqQy9LTUE9PSIsInZhbHVlIjoiUWZkRHNtb3lyNzNwYXdaVlBvMXBGWFhzTHYza0pnT244eSttWEhCaFA4NVllOU1rY2NmdlZSWDZqRm5ianJ0dHlQdEE2TjgyUzNBZ1Y3Wnl4bndXUExXK2RQRFFwaVJISkN2aThaa3FtV0FZdzNSR0VFcEVraVBDbDZlUnZGQTgiLCJtYWMiOiI0MTM4MTM1ZmM5YzllOTAxODFiNmMxMzc1Zjk2MDVmZDY1NDM0MjUxODM3YjJiNTE5NjFiYmRmYzNmOTllMzRkIiwidGFnIjoiIn0%3D; expires=Thu, 18 Jun 2026 23:30:20 GMT; Max-Age=7200; path=/; httponly; samesite=lax"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"Unauthorized\",\n    \"message\": \"Não autorizado! Você precisa estar logado para poder acessar o sistema\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Remover carro",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/cars/1/delete",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "cars",
+                "1",
+                "delete"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "code 200 - carro deletado",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/api/cars/1/delete",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cars",
+                    "1",
+                    "delete"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 21:32:00 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"OK\",\n    \"deleted\": true,\n    \"message\": \"Carro deletado com sucesso\"\n}"
+            },
+            {
+              "name": "code 404 - carro não encontrado",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/api/cars/null/delete",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cars",
+                    "null",
+                    "delete"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 21:32:49 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "57"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"Not Found\",\n    \"message\": \"Carro não encontrado!\"\n}"
+            },
+            {
+              "name": "code 401 - não autorizado",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/api/cars/1/delete",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cars",
+                    "1",
+                    "delete"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 21:33:19 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "XSRF-TOKEN=eyJpdiI6IlpGVTk5Ri9VNHl6UzJDZTQ3ZG9KTnc9PSIsInZhbHVlIjoiUDNramsyblpjNEJScGNnVkttUUZlRlJPTHR6VUxtMVhpZVh1ZUJwblZZZUNZV0djRnBlTWoybEY3cWNmR2d6VFZKanVmdTljQU9NZE9ERjlMOTJiYmV6K1pSdGNFdXc4eGRkY2VQazRYTXpTQjdKb0NhclVJTjhXM29KaW5YMlciLCJtYWMiOiI1MTJhZGQ2ZDljZjJjMTQxNWViYmYxNWEwOTY2NGUwYjYzN2Y2MmYyYWY4M2U0ZTZkOGM5OWY2NTM1MjM4ODE1IiwidGFnIjoiIn0%3D; expires=Thu, 18 Jun 2026 23:33:19 GMT; Max-Age=7200; path=/; samesite=lax"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "car_rental_api_session=eyJpdiI6ImlVdS96dmlGSy9mOXNSaUwrNlVIeEE9PSIsInZhbHVlIjoiRFRYekN4aUZlOHBrY3VTU21tNHpxdFl3cEorTkRXeU55eC9NMmVyT2dMYkF1cFRrbnJtU2ZVTkgwREtsVzVabEdpdXdqOTZXUlRXRXBKQ1U2VFZ0dGRyMU4wUVpSMFFvM3llRHNpZ1E5T2FzTU8wOVNaRUVNTXN2RVVtdGNxQTIiLCJtYWMiOiI3MjVmYWRjNDI1MTZlY2FkYjA4ZTYzMTU0NzAzYmM0Njc5MDcwMDZmNDlhNmIwNzNiY2NlZjFlZmNmMjdhNjU3IiwidGFnIjoiIn0%3D; expires=Thu, 18 Jun 2026 23:33:19 GMT; Max-Age=7200; path=/; httponly; samesite=lax"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"Unauthorized\",\n    \"message\": \"Não autorizado! Você precisa estar logado para poder acessar o sistema\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Listar carros deletados",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/cars/list-deleted",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "cars",
+                "list-deleted"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "code 200 - lista de carros deletados",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{api}}/carros/listar-removidos",
+                  "host": [
+                    "{{api}}"
+                  ],
+                  "path": [
+                    "carros",
+                    "listar-removidos"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.2"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sun, 07 Jul 2024 21:10:57 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "57"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"response_status\": \"OK\",\n    \"carCollection\": [\n        {\n            \"id\": 1,\n            \"brand\": \"Chevrolet\",\n            \"model\": \"Cruze Sport6\",\n            \"age\": 2020,\n            \"price\": 115,\n            \"created_at\": \"2024-07-07 17:33:36\",\n            \"updated_at\": \"2024-07-07 17:44:49\",\n            \"deleted_at\": \"2024-07-07 17:44:49\"\n        }\n    ]\n}"
+            },
+            {
+              "name": "code 401 - não autorizado",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/api/cars/list-deleted",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cars",
+                    "list-deleted"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.31"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 18 Jun 2026 21:19:42 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "XSRF-TOKEN=eyJpdiI6ImFwcmNWbVRZbjhkUURUeGpXcU9VVUE9PSIsInZhbHVlIjoiOGVzSXQ1U2taak1MVVp5T3lzeXlBZlRDNjZyTVlVczJ6aXBQMlVqTllxOVZmVGpFaHkwdU1kcks1a3VpNk53SU1KSTd6NGd4ODV0Z3JobnhBOG9jWnBrdzgxdElEUzJXVm9BTTNzengyemhHbzQ2WnlQUzlNOUJRT2xkcUZ2dU0iLCJtYWMiOiJjNWMxNTcxZjZlNWM1NjI5NTQ0ZDU5MjM2MzZlY2M2YzZlYzE4MWYwMjRhMTgyMTUyMjEyNGY2ZTQzODIwNjYyIiwidGFnIjoiIn0%3D; expires=Thu, 18 Jun 2026 23:19:42 GMT; Max-Age=7200; path=/; samesite=lax"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "car_rental_api_session=eyJpdiI6Ik9pKzB6L1ZidytIbnpCNUQ2d3YxV3c9PSIsInZhbHVlIjoiZjB0WElRZ3F6eHVjS1VHWmh3UzdqeGNWTTVXUXRNTkQ4K0VuK3BBTktlT3pVQlF3YjhoTTRnOTlxU1pvRFVPWU5mL01oTWtzWFJKWWlIcmFrbGtGTklVekFwVU5nZzZ1ckx0YXRWa3FTNWtCcmtDdHdMbndZK3E2KzNjNWpwQmkiLCJtYWMiOiJiNjRmMGY1ZjllYzQ2ZTU3ZjM0MjViZWViOGI0NTgxYzM2N2QxZDcwZTJmY2M0YTZjOTgxMGZlMDc5ZTMwZGVkIiwidGFnIjoiIn0%3D; expires=Thu, 18 Jun 2026 23:19:42 GMT; Max-Age=7200; path=/; httponly; samesite=lax"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"responseStatus\": \"Unauthorized\",\n    \"message\": \"Não autorizado! Você precisa estar logado para poder acessar o sistema\"\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearer_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "url",
+      "value": "http://127.0.0.1:8000"
+    },
+    {
+      "key": "bearer_token",
+      "value": ""
+    }
+  ]
+}

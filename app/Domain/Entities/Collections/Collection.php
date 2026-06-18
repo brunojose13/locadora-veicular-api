@@ -11,13 +11,16 @@ use function App\Helpers\getClassShortName;
 
 abstract class Collection
 {
-    public function __construct(protected array $collectionEntities, string $entityType)
-    {
+
+    public function __construct(
+        protected array $collectionEntities,
+        protected string $entityType,
+    ) {
         foreach ($this->collectionEntities as $entity) {
             if (! $entity instanceof IEntity && $entity instanceof $entityType) {
                 throw new InvalidCollectionDataException(
                     getClassShortName(get_called_class()), 
-                    getClassShortName($entityType)
+                    getClassShortName($entityType),
                 );
             }
         }

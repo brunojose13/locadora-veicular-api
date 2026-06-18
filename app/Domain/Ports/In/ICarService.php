@@ -14,7 +14,7 @@ interface ICarService
 {
     public function getCars(): CarListOutput;
 
-    public function createCar(CarData $userData): CarOutput;
+    public function createCar(CarData $carData): CarOutput;
 
     public function updateCar(Car $car): CarOutput;
 

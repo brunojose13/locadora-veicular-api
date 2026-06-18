@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
+
     public function __construct(
         private IAuthService $authService,
     ) {}
@@ -22,10 +23,12 @@ class AuthController extends Controller
     public function login(LoginRequest $request): Response
     {
         try{
-            $output = $this->authService->authenticate(new Credentials(
-                $request->input('email'),
-                (string) $request->input('password'),
-            ));
+            $output = $this->authService->authenticate(
+                new Credentials(
+                    $request->input('email'),
+                    (string) $request->input('password'),
+                ),
+            );
 
             $response = new ArrayResponse($output->getOutput(), Response::HTTP_ACCEPTED);
 
@@ -54,15 +57,12 @@ class AuthController extends Controller
 
     public function unauthorize(): Response
     {
-        try {
-            $this->authService->getDeauthorizeMessage();
+        $errorMessage = (new UnauthorizedUserException())->getMessage();
 
-        } catch (UnauthorizedUserException $e) {
-            $response = new MessageResponse(
-                $e->getMessage(),
-                Response::HTTP_UNAUTHORIZED,
-            );
-        } 
+        $response = new MessageResponse(
+            $errorMessage,
+            Response::HTTP_UNAUTHORIZED,
+        );
         
         return $response->getResponse();
     }

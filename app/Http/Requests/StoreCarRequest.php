@@ -39,7 +39,7 @@ class StoreCarRequest extends FormRequest
         return [
             'brand' => [
                 'required' => 'O campo `brand` é obrigatório',
-                'string' => 'O campo `brand` deve serdo tipo texto (string)'
+                'string' => 'O campo `brand` deve ser do tipo texto (string)'
             ],            
             'model' => [
                 'required' => 'O campo `model` é obrigatório',

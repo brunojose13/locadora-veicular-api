@@ -33,7 +33,7 @@ class CarController extends Controller
                 $t->getFile(),
                 $t->getLine(),
                 $t->getTraceAsString(),
-                $t->getMessage()
+                $t->getMessage(),
             );
         }
 
@@ -43,12 +43,14 @@ class CarController extends Controller
     public function store(StoreCarRequest $request): Response
     {
         try {
-            $output = $this->carService->createCar(new CarData(
-                $request->input('brand'),
-                $request->input('model'),
-                $request->input('age'),
-                $request->input('price')
-            ));
+            $output = $this->carService->createCar(
+                new CarData(
+                    $request->input('brand'),
+                    $request->input('model'),
+                    $request->input('age'),
+                    $request->input('price'),
+                ),
+            );
                 
             $response = new ArrayResponse($output->getOutput(), Response::HTTP_CREATED);
 
@@ -57,7 +59,7 @@ class CarController extends Controller
                 $t->getFile(),
                 $t->getLine(),
                 $t->getTraceAsString(),
-                $t->getMessage()
+                $t->getMessage(),
             );
         }
 
@@ -67,13 +69,15 @@ class CarController extends Controller
     public function update(UpdateCarRequest $request): Response
     {
         try {
-            $output = $this->carService->updateCar(new Car(
-                $request->input('id'),
-                $request->input('brand'),
-                $request->input('model'),
-                $request->input('age'),
-                $request->input('price')             
-            ));
+            $output = $this->carService->updateCar(
+                new Car(
+                    $request->input('id'),
+                    $request->input('brand'),
+                    $request->input('model'),
+                    $request->input('age'),
+                    $request->input('price'),
+                ),
+            );
                 
             $response = new ArrayResponse($output->getOutput());
 
@@ -86,7 +90,7 @@ class CarController extends Controller
                 $t->getFile(),
                 $t->getLine(),
                 $t->getTraceAsString(),
-                $t->getMessage()
+                $t->getMessage(),
             );
         }
 
@@ -97,7 +101,7 @@ class CarController extends Controller
     {
         try {
             $output = $this->carService->getCarById(
-                (int) $request->route('id')
+                (int) $request->route('id'),
             );
             
             $response = new ArrayResponse($output->getOutput());
@@ -110,7 +114,7 @@ class CarController extends Controller
                 $t->getFile(),
                 $t->getLine(),
                 $t->getTraceAsString(),
-                $t->getMessage()
+                $t->getMessage(),
             );
         }
 
@@ -121,7 +125,7 @@ class CarController extends Controller
     {
         try {
             $output = $this->carService->deleteCar(
-                (int) $request->route('id')
+                (int) $request->route('id'),
             );
             
             $response = new ArrayResponse($output->getOutput());
@@ -134,7 +138,7 @@ class CarController extends Controller
                 $t->getFile(),
                 $t->getLine(),
                 $t->getTraceAsString(),
-                $t->getMessage()
+                $t->getMessage(),
             );
         }
 
@@ -151,7 +155,7 @@ class CarController extends Controller
                 $t->getFile(),
                 $t->getLine(),
                 $t->getTraceAsString(),
-                $t->getMessage()
+                $t->getMessage(),
             );
         }
 
