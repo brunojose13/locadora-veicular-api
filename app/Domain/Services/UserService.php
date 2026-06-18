@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Domain\Services;
 
+use App\Domain\Ports\In\IAuthService;
+use App\Domain\Ports\In\IUserRepository;
 use App\Domain\Ports\In\IUserService;
-use App\Domain\Ports\Out\IUserRepository;
 use App\Domain\Ports\Out\DeletedUserOutput;
 use App\Domain\Ports\Out\UserListOutput;
 use App\Domain\Ports\Out\UserOutput;
@@ -15,9 +16,11 @@ use App\Exceptions\UserNotFoundException;
 
 class UserService implements IUserService
 {
-    public function __construct(private IUserRepository $userRepository, private AuthService $authService)
-    {
-    }
+
+    public function __construct(
+        private IUserRepository $userRepository,
+        private IAuthService $authService,
+    ) {}
 
     public function getUsers(): UserListOutput
     {

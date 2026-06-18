@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Domain\Ports\In\IAuthService;
 use App\Domain\Services\AuthService;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -21,9 +22,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(AuthService::class, function () {
-            return new AuthService();
-        });
+        $this->app->singleton(IAuthService::class, AuthService::class);
     }
 
     /**

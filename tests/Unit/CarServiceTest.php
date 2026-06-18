@@ -4,13 +4,13 @@ use App\Domain\Ports\Out\CarListOutput;
 use App\Domain\Ports\Out\CarOutput;
 use App\Domain\Ports\Out\DeletedCarOutput;
 use App\Domain\Entities\Car as CarEntity;
-use App\Domain\Services\CarService;
+use App\Domain\Ports\In\ICarService;
 use App\Domain\ValueObjects\CarData;
 use App\Exceptions\CarNotFoundException;
 use App\Infrastructure\Models\Car;
 
 beforeEach(function () {
-    $this->carService = $this->app->make(CarService::class);
+    $this->carService = $this->app->make(ICarService::class);
 });
 
 describe('CRUD for Car', function () {

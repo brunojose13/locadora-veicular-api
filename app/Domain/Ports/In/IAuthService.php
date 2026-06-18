@@ -12,7 +12,10 @@ use App\Domain\ValueObjects\Credentials;
 interface IAuthService
 {
     public function authenticate(Credentials $credentials): LoginOutput;
+
     public function invalidate(): LogoutOutput;
+
     public function getAttributesFromLoggedAuth(): UserOutput;
+
     public function getDeauthorizeMessage(): void;
 }

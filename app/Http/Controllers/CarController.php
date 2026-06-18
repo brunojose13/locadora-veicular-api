@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Domain\Entities\Car;
-use App\Domain\Services\CarService;
+use App\Domain\Ports\In\ICarService;
 use App\Domain\ValueObjects\CarData;
 use App\Exceptions\CarNotFoundException;
 use App\Http\Requests\StoreCarRequest;
@@ -18,14 +18,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CarController extends Controller
 {
-    public function __construct(private CarService $carService)
-    {
-    }
+
+    public function __construct(
+        private ICarService $carService,
+    ) {}
 
     public function index(): Response
     {
         try {
             $response = new ArrayResponse($this->carService->getCars()->getOutput());
+
         } catch (\Throwable $t) {
             $response = new ServerErrorResponse(
                 $t->getFile(),
@@ -49,6 +51,7 @@ class CarController extends Controller
             ));
                 
             $response = new ArrayResponse($output->getOutput(), Response::HTTP_CREATED);
+
         } catch (\Throwable $t) {
             $response = new ServerErrorResponse(
                 $t->getFile(),
@@ -73,8 +76,11 @@ class CarController extends Controller
             ));
                 
             $response = new ArrayResponse($output->getOutput());
+
         } catch (CarNotFoundException $exception) {
+
             $response = new MessageResponse($exception->getMessage(), Response::HTTP_NOT_FOUND);
+
         } catch (\Throwable $t) {
             $response = new ServerErrorResponse(
                 $t->getFile(),
@@ -95,8 +101,10 @@ class CarController extends Controller
             );
             
             $response = new ArrayResponse($output->getOutput());
+
         } catch (CarNotFoundException $exception) {
             $response = new MessageResponse($exception->getMessage(), Response::HTTP_NOT_FOUND);
+
         } catch (\Throwable $t) {
             $response = new ServerErrorResponse(
                 $t->getFile(),
@@ -117,8 +125,10 @@ class CarController extends Controller
             );
             
             $response = new ArrayResponse($output->getOutput());
+
         } catch (CarNotFoundException $exception) {
             $response = new MessageResponse($exception->getMessage(), Response::HTTP_NOT_FOUND);
+
         } catch (\Throwable $t) {
             $response = new ServerErrorResponse(
                 $t->getFile(),
@@ -135,6 +145,7 @@ class CarController extends Controller
     {
         try {
             $response = new ArrayResponse($this->carService->getDeletedCars()->getOutput());
+
         } catch (\Throwable $t) {
             $response = new ServerErrorResponse(
                 $t->getFile(),

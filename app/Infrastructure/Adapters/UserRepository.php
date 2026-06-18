@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Adapters;
 
-use App\Domain\Ports\Out\IUserRepository;
+use App\Domain\Ports\In\IUserRepository;
 use App\Domain\Entities\Collections\UserCollection;
 use App\Domain\Entities\User as UserEntity;
 use App\Domain\ValueObjects\Credentials;

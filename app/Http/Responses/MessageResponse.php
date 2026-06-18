@@ -10,14 +10,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MessageResponse implements IJsonResponse
 {
-    public function __construct(private string $message = '', private int $statusCode = 200)
-    {
-    }
+
+    public function __construct(
+        private string $message = '', 
+        private int $statusCode = 200,
+    ) {}
 
     public function getResponse(): JsonResponse
     {
         return response()->json([
-            'response_status' => Response::$statusTexts[$this->statusCode] ?? 'OK',
+            'responseStatus' => Response::$statusTexts[$this->statusCode] ?? 'OK',
             'message' => $this->message ?? null
         ], $this->statusCode);
     }

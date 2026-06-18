@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Domain\Services\UserService;
+use App\Domain\Ports\In\IUserService;
 use App\Domain\ValueObjects\Credentials;
 use App\Domain\ValueObjects\UserData;
 use App\Exceptions\UserAlreadyExistsException;
@@ -19,14 +19,40 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
-    public function __construct(private UserService $userService)
-    {
-    }
+
+    public function __construct(
+        private IUserService $userService,
+    ) {}
 
     public function index(): Response
     {
         try {
             $response = new ArrayResponse($this->userService->getUsers()->getOutput());
+        
+        } catch (\Throwable $t) {
+            $response = new ServerErrorResponse(
+                $t->getFile(),
+                $t->getLine(),
+                $t->getTraceAsString(),
+                $t->getMessage()
+            );
+        }
+
+        return $response->getResponse();
+    }
+
+    public function show(Request $request): Response
+    {
+        try {
+            $output = $this->userService->getUserById(
+                (int) $request->route('id')
+            );
+            
+            $response = new ArrayResponse($output->getOutput());
+
+        } catch (UserNotFoundException $exception) {
+            $response = new MessageResponse($exception->getMessage(), Response::HTTP_NOT_FOUND);
+
         } catch (\Throwable $t) {
             $response = new ServerErrorResponse(
                 $t->getFile(),
@@ -51,8 +77,10 @@ class UserController extends Controller
             ));
                 
             $response = new ArrayResponse($output->getOutput(), Response::HTTP_CREATED);
+
         } catch (UserAlreadyExistsException $e) {
             $response = new MessageResponse($e->getMessage(), Response::HTTP_EXPECTATION_FAILED);
+
         } catch (\Throwable $t) {
             $response = new ServerErrorResponse(
                 $t->getFile(),
@@ -77,8 +105,10 @@ class UserController extends Controller
             ));
                 
             $response = new ArrayResponse($output->getOutput());
+
         } catch (UserNotFoundException $exception) {
             $response = new MessageResponse($exception->getMessage(), Response::HTTP_NOT_FOUND);
+
         } catch (\Throwable $t) {
             $response = new ServerErrorResponse(
                 $t->getFile(),
@@ -87,28 +117,6 @@ class UserController extends Controller
                 $t->getMessage()
             );
 
-        }
-
-        return $response->getResponse();
-    }
-
-    public function show(Request $request): Response
-    {
-        try {
-            $output = $this->userService->getUserById(
-                (int) $request->route('id')
-            );
-            
-            $response = new ArrayResponse($output->getOutput());
-        } catch (UserNotFoundException $exception) {
-            $response = new MessageResponse($exception->getMessage(), Response::HTTP_NOT_FOUND);
-        } catch (\Throwable $t) {
-            $response = new ServerErrorResponse(
-                $t->getFile(),
-                $t->getLine(),
-                $t->getTraceAsString(),
-                $t->getMessage()
-            );
         }
 
         return $response->getResponse();
@@ -122,8 +130,10 @@ class UserController extends Controller
             );
             
             $response = new ArrayResponse($output->getOutput());
+
         } catch (UserNotFoundException $exception) {
             $response = new MessageResponse($exception->getMessage(), Response::HTTP_NOT_FOUND);
+
         } catch (\Throwable $t) {
             $response = new ServerErrorResponse(
                 $t->getFile(),

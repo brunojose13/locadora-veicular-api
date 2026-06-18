@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Domain\Services\AuthService;
+use App\Domain\Ports\In\IAuthService;
 use App\Domain\ValueObjects\Credentials;
 use App\Exceptions\CredentialsException;
 use App\Exceptions\UnauthorizedUserException;
@@ -15,19 +15,20 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-    public function __construct(private AuthService $authService)
-    {
-    }
+    public function __construct(
+        private IAuthService $authService,
+    ) {}
 
     public function login(LoginRequest $request): Response
     {
         try{
             $output = $this->authService->authenticate(new Credentials(
                 $request->input('email'),
-                (string) $request->input('password')
+                (string) $request->input('password'),
             ));
 
             $response = new ArrayResponse($output->getOutput(), Response::HTTP_ACCEPTED);
+
         } catch (CredentialsException $e) {
             $response = new MessageResponse($e->getMessage(), Response::HTTP_UNAUTHORIZED);    
         }
@@ -55,10 +56,11 @@ class AuthController extends Controller
     {
         try {
             $this->authService->getDeauthorizeMessage();
+
         } catch (UnauthorizedUserException $e) {
             $response = new MessageResponse(
                 $e->getMessage(),
-                Response::HTTP_UNAUTHORIZED
+                Response::HTTP_UNAUTHORIZED,
             );
         } 
         

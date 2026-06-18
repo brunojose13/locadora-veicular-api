@@ -24,7 +24,7 @@ class ServerErrorResponse implements IJsonResponse
     public function getResponse(): JsonResponse
     {
         return response()->json([
-            'response_status' => Response::$statusTexts[$this->statusCode],
+            'responseStatus' => Response::$statusTexts[$this->statusCode],
             'message' => $this->message,
             'file' => $this->exceptionOrigin,
             'line' => $this->exceptionLine,

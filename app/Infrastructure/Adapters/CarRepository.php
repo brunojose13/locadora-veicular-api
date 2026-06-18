@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Adapters;
 
-use App\Domain\Ports\Out\ICarRepository;
+use App\Domain\Ports\In\ICarRepository;
 use App\Domain\Entities\Car as CarEntity;
 use App\Domain\Entities\Collections\CarCollection;
 use App\Domain\ValueObjects\CarData;

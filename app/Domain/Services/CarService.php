@@ -4,20 +4,21 @@ declare(strict_types=1);
 
 namespace App\Domain\Services;
 
+use App\Domain\Ports\In\ICarRepository;
 use App\Domain\Ports\In\ICarService;
 use App\Domain\Ports\Out\CarListOutput;
 use App\Domain\Ports\Out\CarOutput;
 use App\Domain\Ports\Out\DeletedCarOutput;
-use App\Domain\Ports\Out\ICarRepository;
 use App\Domain\Entities\Car;
 use App\Domain\ValueObjects\CarData;
 use App\Exceptions\CarNotFoundException;
 
 class CarService implements ICarService
 {
-    public function __construct(private ICarRepository $carRepository)
-    {
-    }
+
+    public function __construct(
+        private ICarRepository $carRepository,
+    ) {}
 
     public function getCars(): CarListOutput
     {
