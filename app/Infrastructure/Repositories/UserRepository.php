@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Adapters;
+namespace App\Infrastructure\Repositories;
 
 use App\Domain\Ports\In\IUserRepository;
 use App\Domain\Entities\Collections\UserCollection;
@@ -27,7 +27,7 @@ class UserRepository implements IUserRepository
 
     public function save(UserData $userData): ?UserEntity
     {
-        if ($this->exists($userData->getEmail())) {
+        if (User::where('email', $userData->getCredentials()->getEmail())->exists()) {
             return null;
         };
 
@@ -38,10 +38,10 @@ class UserRepository implements IUserRepository
 
     public function update(UserData $userData): ?UserEntity
     {
-        $user = User::where('email', $userData->getEmail())->first();
+        $user = User::firstWhere('email', $userData->getCredentials()->getEmail());
 
         if (! $user) return null;
-        
+
         $user->update($userData->toDatabase());
 
         return $this->getUserEntity($user);
@@ -73,12 +73,7 @@ class UserRepository implements IUserRepository
             new Credentials($user->email, $user->password),
             $user->remember_token,
             $user->created_at,
-            $user->updated_at
+            $user->updated_at,
         );
-    }
-
-    private function exists(string $email): bool
-    {
-        return User::where('email', $email)->exists();
     }
 }

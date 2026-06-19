@@ -6,9 +6,10 @@ namespace App\Domain\ValueObjects;
 
 class Credentials
 {
-    public function __construct(private string $email, private string $password)
-    {
-    }
+    public function __construct(
+        private string $email, 
+        private string $password,
+    ) {}
 
     public function getEmail(): string
     {
@@ -24,7 +25,7 @@ class Credentials
     {
         return [
             'email' => $this->getEmail(),
-            'password' => $this->getPassword()
+            'password' => $this->getPassword(),
         ];
     }
 

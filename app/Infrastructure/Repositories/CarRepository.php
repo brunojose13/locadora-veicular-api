@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Adapters;
+namespace App\Infrastructure\Repositories;
 
 use App\Domain\Ports\In\ICarRepository;
 use App\Domain\Entities\Car as CarEntity;

@@ -5,7 +5,7 @@ namespace App\Providers;
 use App\Domain\Ports\In\IUserRepository;
 use App\Domain\Ports\In\IUserService;
 use App\Domain\Services\UserService;
-use App\Infrastructure\Adapters\UserRepository;
+use App\Infrastructure\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
 class UserServiceProvider extends ServiceProvider

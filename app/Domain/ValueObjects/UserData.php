@@ -6,9 +6,10 @@ namespace App\Domain\ValueObjects;
 
 class UserData
 {
-    public function __construct(private string $name, private Credentials $credentials)
-    {
-    }
+    public function __construct(
+        private string $name, 
+        private Credentials $credentials,
+    ) {}
 
     public function getName(): string
     {
@@ -18,11 +19,6 @@ class UserData
     public function getCredentials(): Credentials
     {
         return $this->credentials;
-    }
-
-    public function getEmail(): string
-    {
-        return $this->getCredentials()->getEmail();
     }
 
     public function toDatabase(): array

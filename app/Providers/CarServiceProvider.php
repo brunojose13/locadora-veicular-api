@@ -5,7 +5,7 @@ namespace App\Providers;
 use App\Domain\Ports\In\ICarRepository;
 use App\Domain\Ports\In\ICarService;
 use App\Domain\Services\CarService;
-use App\Infrastructure\Adapters\CarRepository;
+use App\Infrastructure\Repositories\CarRepository;
 use Illuminate\Support\ServiceProvider;
 
 class CarServiceProvider extends ServiceProvider

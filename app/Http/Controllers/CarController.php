@@ -65,6 +65,30 @@ class CarController extends Controller
         return $response->getResponse();
     }
 
+    public function show(Request $request): Response
+    {
+        try {
+            $output = $this->carService->getCarById(
+                (int) $request->route('id'),
+            );
+            
+            $response = new ArrayResponse($output->getOutput());
+
+        } catch (CarNotFoundException $exception) {
+            $response = new MessageResponse($exception->getMessage(), Response::HTTP_NOT_FOUND);
+
+        } catch (\Throwable $t) {
+            $response = new ServerErrorResponse(
+                $t->getFile(),
+                $t->getLine(),
+                $t->getTraceAsString(),
+                $t->getMessage(),
+            );
+        }
+
+        return $response->getResponse();
+    }
+
     public function update(UpdateCarRequest $request): Response
     {
         try {
@@ -82,30 +106,6 @@ class CarController extends Controller
 
         } catch (CarNotFoundException $exception) {
 
-            $response = new MessageResponse($exception->getMessage(), Response::HTTP_NOT_FOUND);
-
-        } catch (\Throwable $t) {
-            $response = new ServerErrorResponse(
-                $t->getFile(),
-                $t->getLine(),
-                $t->getTraceAsString(),
-                $t->getMessage(),
-            );
-        }
-
-        return $response->getResponse();
-    }
-
-    public function show(Request $request): Response
-    {
-        try {
-            $output = $this->carService->getCarById(
-                (int) $request->route('id'),
-            );
-            
-            $response = new ArrayResponse($output->getOutput());
-
-        } catch (CarNotFoundException $exception) {
             $response = new MessageResponse($exception->getMessage(), Response::HTTP_NOT_FOUND);
 
         } catch (\Throwable $t) {
